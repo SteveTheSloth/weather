@@ -1,0 +1,88 @@
+{% extends "base.html" %} 
+
+{% block title %}Weather Detail{% endblock %} 
+
+{% block headline %}
+<h1 class="heading">Weather Details for {{object.name}},
+{% if object.state %}
+ {{object.state}}, {{object.country}}  </h1>
+{% else %}
+ {{object.country}}
+  </h1>
+{% endif %}
+{% endblock %} 
+
+{% block message %} 
+
+{% endblock %} 
+
+{% block content %}
+<img
+class="icon"
+src="https://openweathermap.org/img/wn/{{current_data.icon}}.png"
+/>
+  <h3 class="header">Current Weather Report: </h3>
+<div class="weather">
+  <li class="weather__header">Overall Conditions: </li>
+  
+  <li class="weather__item">
+    {{current_data.weather}}
+  </li>
+  <li class="weather__item">
+    Temperature: {{current_data.temperature}}°{{current_data.temp_unit}}
+  </li>
+  <li class="weather__item">
+    Feels like: {{current_data.feels_like}}°{{current_data.temp_unit}}
+  </li>
+  <li class="weather__item">Cloud Coverage: {{current_data.clouds}}%</li>
+ 
+  <li class="weather__header">Wind Conditions</li>
+  
+  <li class="weather__item">
+    Wind Speed: {{current_data.wind_speed}} {{current_data.speed_unit}}
+  </li>
+  <li class="weather__item">
+    Wind Direction: {{current_data.wind_direction}}°
+  </li>
+  {% if current_data.wind_gust %}
+  <li class="weather__item">
+    Wind Gusts: {{current_data.wind_gust}} {{current_data.speed_unit}}
+  </li>
+  <li class="weather__item"></li>
+  {% else %}
+  <li class="weather__item"></li>
+  <li class="weather__item"></li>
+  {% endif %}
+  
+  <li class="weather__header">Additional Parameters</li>
+ 
+  <li class="weather__item">Humidity: {{current_data.humidity}}%</li>
+  <li class="weather__item">
+    Atmospheric Pressure: {{current_data.pressure}} hPa
+  </li>
+  <li class="weather__item"></li>
+  <li class="weather__item"></li>
+</div>
+<h3 class="header">5 Day Forecast:</h3>
+<div class="forecast">
+  <li class="forecast__unit">Date</li>
+    <li class="forecast__unit">Min Temperature</li>
+    <li class="forecast__unit">Max Temperature</li>
+    <li class="forecast__unit">Min Wind Speed</li>
+    <li class="forecast__unit">Max Wind Speed</li>
+  {% for data in daily_data %}
+  <li class="forecast__header">{{data.date}}</li>
+
+    
+      <li class="forecast__item">{{data.temperature__min}}°{{current_data.temp_unit}}</li>
+      <li class="forecast__item">{{data.temperature__max}}°{{current_data.temp_unit}}</li>
+      <li class="forecast__item">{{data.wind_speed__min}} {{current_data.speed_unit}}</li>
+      <li class="forecast__item">{{data.wind_speed__max}} {{current_data.speed_unit}}</li>
+      
+  {% endfor %}
+</div>
+{% endblock %} 
+
+{% block links %} 
+<a class="return" href="{% url 'index' %}">Back to Search</a>
+{% endblock %}

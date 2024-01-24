@@ -1,0 +1,47 @@
+{% extends "base.html" %} 
+
+
+{% block title %}Weather App{% endblock %} 
+
+
+{% block headline %}
+<h1 class="heading">Welcome to the Weather App</h1>
+{% endblock %} 
+
+{% block message %} 
+{% if nonefound %}
+<h3>No data matches your search criteria. Please try again.</h3>
+{% elif options %}
+<h3>
+  Multiple Cities match your search criteria. Please choose from the list below.
+</h3>
+{% endif %} 
+{% endblock %} 
+
+{% block content %}
+<form class="search" method="post" autocomplete="off">
+  {% csrf_token %} {{form.city}} 
+  <div class="search__units">
+  {{form.units}}
+</div> {{form.country}} 
+<div class="search__current">{{form.current}}</div>
+  <input class="search__submit" type="submit" name="citySubmit" />
+</form>
+{% endblock %} 
+
+{% block links %} 
+{% if options %}
+  {% for option in options %}
+  <form class="choice" method="post">
+    {% csrf_token %}
+    {%if option.state %}
+    <button class="choice__button" name="choice" type="submit" value="{{option.city_id}} {{option.country}} {{option.state}}">{{option.name}}, {{option.state}}, {{option.country}}</button>
+    {% else %}
+    <button class="choice__button" name="choice" type="submit" value="{{option.city_id}} {{option.country}}">{{option.name}}, {{option.country}}</button>
+    {% endif %}
+
+  </form>
+  {% endfor %}
+ 
+{% endif %} 
+{% endblock %}

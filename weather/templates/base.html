@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="/static/weather/styles.css" />
+    <title>{% block title %}Weather App{% endblock %}</title>
+  </head>
+
+  <body>
+    <div class="heading">{% block headline %} {% endblock %}</div>
+
+    <div class="message">{% block message %} {% endblock %}</div>
+
+    <div class="content">{% block content %} {% endblock %}</div>
+
+    <div class="links">{% block links %} {% endblock %}</div>
+  </body>
+</html>
